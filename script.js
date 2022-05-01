@@ -12,17 +12,33 @@ function userPlay(userChoice) {
   return -1;
 }
 
-function checkSelection(playerSelection, compSelection) {
+function checkPlayerWin(playerSelection, compSelection) {
   if (
     compSelection - playerSelection === 1 ||
     playerSelection - compSelection === gameArray.length - 1
   ) {
-    return `You lose! ${gameArray[compSelection]} beats ${gameArray[playerSelection]}`;
+    console.log(
+      `You lose! ${gameArray[compSelection]} beats ${gameArray[playerSelection]}`
+    );
+    return -1;
   } else if (playerSelection === compSelection) {
-    return "The play was a draw!!!";
+    console.log("The play was a draw!!!");
+    return 0;
   } else {
-    return `You won! ${gameArray[compSelection]} beats ${gameArray[playerSelection]}`;
+    console.log(
+      `You won! ${gameArray[playerSelection]} beats ${gameArray[compSelection]}`
+    );
+    return 1;
   }
 }
 
-console.log(computerPlay());
+let score = 0;
+for (let i = 0; i < 5; i++) {
+  let playerChoice = prompt("Enter your choice(Rock, Paper, Scissors):");
+  let gameResult = checkPlayerWin(userPlay(playerChoice), computerPlay());
+  if (gameResult === 1) {
+    score += 1;
+  }
+}
+
+console.log("Your final score was " + score);
